@@ -47,7 +47,7 @@ defmodule WordCountTest do
     assert WordCount.count("go Go GO") == expected
   end
 
-  @tag :pending
+  # @tag :pending
   test "German" do
     expected = %{"götterfunken" => 1, "schöner" => 1, "freude" => 1}
     assert WordCount.count("Freude schöner Götterfunken") == expected
