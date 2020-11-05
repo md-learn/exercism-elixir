@@ -20,28 +20,10 @@ defmodule ListOps do
   end
 
   @spec map(list, (any -> any)) :: list
-  def map(l, f) do
-    l
-    |> do_map(f, [])
-    |> reverse
-  end
-  defp do_map([], _, acc), do: acc
-  defp do_map([elem], f, acc), do: [f.(elem) | acc]
-  defp do_map([hd | tl], f, acc), do: do_map(tl, f, [f.(hd) | acc])
+  def map(l, f), do: for elem <- l, do: f.(elem)
 
   @spec filter(list, (any -> as_boolean(term))) :: list
-  def filter(l, f) do
-    l
-    |> do_filter(f, [])
-    |> reverse
-  end
-  defp do_filter([], _, acc), do: acc
-  defp do_filter([elem], f, acc) do
-    if f.(elem), do: [elem | acc], else: acc
-  end
-  defp do_filter([hd | tl], f, acc) do
-    if f.(hd), do: do_filter(tl, f, [hd | acc]), else: do_filter(tl, f, acc)
-  end
+  def filter(l, f), do: for elem <- l, f.(elem), do: elem
 
   @type acc :: any
   @spec reduce(list, acc, (any, acc -> acc)) :: acc
